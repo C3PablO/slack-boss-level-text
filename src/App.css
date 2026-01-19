@@ -85,6 +85,52 @@ input[type="text"]::placeholder {
   color: #666;
 }
 
+.style-toggle {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.style-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--black);
+}
+
+.toggle-buttons {
+  display: flex;
+  gap: 0;
+}
+
+.toggle-btn {
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 1px;
+  background-color: var(--white);
+  color: var(--black);
+  border: var(--border-width) solid var(--black);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.toggle-btn:first-child {
+  border-right: none;
+}
+
+.toggle-btn.active {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.toggle-btn-yellow.active {
+  background-color: var(--yellow);
+  color: var(--black);
+}
+
 .output-box {
   width: 100%;
   min-height: 100px;
@@ -159,6 +205,11 @@ input[type="text"]::placeholder {
   font-size: 1.2rem;
   font-weight: 700;
   border: 2px solid var(--white);
+}
+
+.preview-box.preview-yellow .letter {
+  background-color: var(--yellow);
+  border-color: var(--yellow);
 }
 
 .preview-box .space {

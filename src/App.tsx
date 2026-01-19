@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 
+type GlyphStyle = 'white' | 'yellow'
+
 const VALID_CHARS_REGEX = /^[a-zA-Z\s!?#@]*$/
 
 const SPECIAL_CHARS: Record<string, string> = {
@@ -10,7 +12,7 @@ const SPECIAL_CHARS: Record<string, string> = {
   '@': 'at',
 }
 
-function convertToSlackGlyphs(text: string): string {
+function convertToSlackGlyphs(text: string, style: GlyphStyle): string {
   return text
     .toLowerCase()
     .split('')
@@ -19,10 +21,10 @@ function convertToSlackGlyphs(text: string): string {
         return '  '
       }
       if (char >= 'a' && char <= 'z') {
-        return `:alphabet-white-${char}:`
+        return `:alphabet-${style}-${char}:`
       }
       if (SPECIAL_CHARS[char]) {
-        return `:alphabet-white-${SPECIAL_CHARS[char]}:`
+        return `:alphabet-${style}-${SPECIAL_CHARS[char]}:`
       }
       return ''
     })
@@ -32,6 +34,7 @@ function convertToSlackGlyphs(text: string): string {
 function App() {
   const [inputText, setInputText] = useState('')
   const [copied, setCopied] = useState(false)
+  const [glyphStyle, setGlyphStyle] = useState<GlyphStyle>('white')
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
@@ -41,7 +44,7 @@ function App() {
     }
   }
 
-  const slackOutput = convertToSlackGlyphs(inputText)
+  const slackOutput = convertToSlackGlyphs(inputText, glyphStyle)
 
   const handleCopy = async () => {
     if (slackOutput) {
@@ -70,6 +73,24 @@ function App() {
             autoComplete="off"
           />
           <span className="hint">Letters A-Z, spaces, and !?#@ allowed</span>
+
+          <div className="style-toggle">
+            <span className="style-label">STYLE</span>
+            <div className="toggle-buttons">
+              <button
+                className={`toggle-btn ${glyphStyle === 'white' ? 'active' : ''}`}
+                onClick={() => setGlyphStyle('white')}
+              >
+                WHITE
+              </button>
+              <button
+                className={`toggle-btn toggle-btn-yellow ${glyphStyle === 'yellow' ? 'active' : ''}`}
+                onClick={() => setGlyphStyle('yellow')}
+              >
+                YELLOW
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="output-section">
@@ -88,7 +109,7 @@ function App() {
 
         <div className="preview-section">
           <label>PREVIEW</label>
-          <div className="preview-box">
+          <div className={`preview-box preview-${glyphStyle}`}>
             {inputText
               ? inputText
                   .toUpperCase()
