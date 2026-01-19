@@ -3,13 +3,26 @@ import './App.css'
 
 type GlyphStyle = 'white' | 'yellow'
 
-const VALID_CHARS_REGEX = /^[a-zA-Z\s!?#@]*$/
+const VALID_CHARS_REGEX = /^[a-zA-Z0-9\s!?#@]*$/
 
 const SPECIAL_CHARS: Record<string, string> = {
   '!': 'exclamation',
   '?': 'question',
   '#': 'hash',
   '@': 'at',
+}
+
+const NUMBER_WORDS: Record<string, string> = {
+  '0': 'zero',
+  '1': 'one',
+  '2': 'two',
+  '3': 'three',
+  '4': 'four',
+  '5': 'five',
+  '6': 'six',
+  '7': 'seven',
+  '8': 'eight',
+  '9': 'nine',
 }
 
 function convertToSlackGlyphs(text: string, style: GlyphStyle): string {
@@ -25,6 +38,9 @@ function convertToSlackGlyphs(text: string, style: GlyphStyle): string {
       }
       if (SPECIAL_CHARS[char]) {
         return `:alphabet-${style}-${SPECIAL_CHARS[char]}:`
+      }
+      if (NUMBER_WORDS[char]) {
+        return `:${NUMBER_WORDS[char]}:`
       }
       return ''
     })
@@ -69,10 +85,10 @@ function App() {
             type="text"
             value={inputText}
             onChange={handleInputChange}
-            placeholder="Type here (A-Z, !?#@)"
+            placeholder="Type here (A-Z, 0-9, !?#@)"
             autoComplete="off"
           />
-          <span className="hint">Letters A-Z, spaces, and !?#@ allowed</span>
+          <span className="hint">Letters A-Z, numbers 0-9, spaces, and !?#@ allowed</span>
 
           <div className="style-toggle">
             <span className="style-label">STYLE</span>
