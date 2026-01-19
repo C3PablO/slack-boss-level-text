@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #1a1a1a;
+  --white: #fefefe;
+  --yellow: #ffe156;
+  --pink: #ff6b9d;
+  --cyan: #4ecdc4;
+  --purple: #a855f7;
+  --border-width: 4px;
+  --shadow-offset: 6px;
+}
+
+body {
+  font-family: 'Space Mono', 'Courier New', monospace;
+  background-color: var(--yellow);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+#root {
+  width: 100%;
+  max-width: 700px;
+}
