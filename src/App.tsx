@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 
-const VALID_CHARS_REGEX = /^[a-zA-Z\s]*$/
+const VALID_CHARS_REGEX = /^[a-zA-Z\s!?#@]*$/
+
+const SPECIAL_CHARS: Record<string, string> = {
+  '!': 'exclamation',
+  '?': 'question',
+  '#': 'hash',
+  '@': 'at',
+}
 
 function convertToSlackGlyphs(text: string): string {
   return text
@@ -13,6 +20,9 @@ function convertToSlackGlyphs(text: string): string {
       }
       if (char >= 'a' && char <= 'z') {
         return `:alphabet-white-${char}:`
+      }
+      if (SPECIAL_CHARS[char]) {
+        return `:alphabet-white-${SPECIAL_CHARS[char]}:`
       }
       return ''
     })
@@ -56,10 +66,10 @@ function App() {
             type="text"
             value={inputText}
             onChange={handleInputChange}
-            placeholder="Type letters only (A-Z)"
+            placeholder="Type here (A-Z, !?#@)"
             autoComplete="off"
           />
-          <span className="hint">Only letters A-Z and spaces allowed</span>
+          <span className="hint">Letters A-Z, spaces, and !?#@ allowed</span>
         </div>
 
         <div className="output-section">
