@@ -2,7 +2,7 @@
 
 A web app that converts plain text into Slack letter glyph emoji codes. Type your message, pick a style, copy the output, and paste it into Slack for bold, eye-catching messages.
 
-https://slack-boss-level-text.netlify.app/
+https://slack-boss-level-text.netlify.app
 
 ## Features
 
